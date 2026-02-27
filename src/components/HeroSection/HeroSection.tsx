@@ -4,14 +4,14 @@ import hero from "@/assest/hero/heroImage.png"
 export default function Hero() {
   return (
     <section className="relative bg-[#F8F8FD] overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-10 py-12 grid lg:grid-cols-2 items-center gap-10">
+      <div className="container mx-auto px-4 lg:px-10  grid lg:grid-cols-2 items-center gap-10">
         
         {/* LEFT CONTENT */}
         <div className="w-full">
           <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 leading-tight">
             Discover <br />
-            more than{" "}
-            <span className="text-blue-600">5000+ Jobs</span>
+            more than <br />
+            <span className="text-[#26A4FF]">5000+ Jobs</span>
           </h1>
 
           <p className="mt-6 text-gray-500 max-w-lg">
@@ -25,16 +25,16 @@ export default function Hero() {
             <input
               type="text"
               placeholder="Job title or keyword"
-              className="flex-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#4640DE]"
             />
 
             <input
               type="text"
               placeholder="Location"
-              className="flex-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#4640DE]"
             />
 
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition">
+            <button className="bg-[#4640DE] hover:bg-[#2822e2] text-white px-6 py-3 rounded-md font-semibold transition">
               Search my job
             </button>
           </div>
