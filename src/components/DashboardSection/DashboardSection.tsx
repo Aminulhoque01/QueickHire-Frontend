@@ -4,7 +4,7 @@ import dashboard from "@/assest/company/Dashboard Company.png";
 export default function DashboardSection() {
   return (
     <div className="bg-[#FFFFFF] py-10">
-      <section className="relative container mx-auto overflow-hidden rounded-xl bg-[#4640DE]">
+      <section className="relative lg:container mx-auto overflow-hidden rounded-xl bg-[#4640DE]">
 
         {/* Top Left White Cut */}
         <div className="absolute -top-60 -left-60 w-[300px] h-[500px] bg-[#FFFFFF] rotate-45"></div>
@@ -24,7 +24,7 @@ export default function DashboardSection() {
               Start posting jobs for only $10.
             </p>
 
-            <button className="mt-8 bg-white text-indigo-600 font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-gray-100 transition">
+            <button className="mt-8  bg-white text-indigo-600 font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-gray-100 transition">
               Sign Up For Free
             </button>
           </div>
