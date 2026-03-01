@@ -1,70 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/lib/axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
- 
-import Cookies from "js-cookie";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
-  user: any;
-  loading: boolean;
-  error: string | null;
+  user: any | null;
+  token: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
-  loading: false,
-  error: null,
+  token:
+    typeof window !== "undefined"
+      ? localStorage.getItem("token")
+      : null,
 };
-
-export const loginUser = createAsyncThunk(
-  "auth/login",
-  async (data: { email: string; password: string }, thunkAPI) => {
-    try {
-      const res = await api.post("/auth/login", data);
-      Cookies.set("token", res.data.token);
-      return res.data.user;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response.data.message);
-    }
-  }
-);
-
-export const registerUser = createAsyncThunk(
-  "auth/register",
-  async (data: any, thunkAPI) => {
-    try {
-      const res = await api.post("/auth/register", data);
-      return res.data;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response.data.message);
-    }
-  }
-);
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setCredentials: (
+      state,
+      action: PayloadAction<{ user: any; token: string }>
+    ) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      localStorage.setItem("token", action.payload.token);
+    },
     logout: (state) => {
       state.user = null;
-      Cookies.remove("token");
+      state.token = null;
+      localStorage.removeItem("token");
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(loginUser.rejected, (state, action: any) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;

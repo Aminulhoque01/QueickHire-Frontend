@@ -1,8 +1,9 @@
 import Navbar from "@/components/Header/Header";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
-import ReduxProvider from "@/redux/provider";
+ 
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import Providers from "./providers";
  
 
 export default function RootLayout({
@@ -13,13 +14,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>
+         <Providers> 
           <AuthProvider>
         <Navbar />
         {children}
         <Footer/>
         </AuthProvider>
-        </ReduxProvider> 
+        </Providers>
       </body>
     </html>
   );

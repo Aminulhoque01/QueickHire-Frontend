@@ -14,7 +14,7 @@ export default function Navbar() {
 
         {/* Left Side */}
         <div className="flex gap-5 items-center">
-          <Image src={logo} width={152} height={36} alt="logo" />
+          <Link href="/"><Image src={logo} width={152} height={36} alt="logo" /></Link>
           <div className="hidden md:flex items-center space-x-8">
             <Link href="#" className="hover:text-indigo-600 transition">
               Find Jobs
@@ -29,7 +29,8 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center space-x-6 font-medium">
 
           {/* Login Button */}
-          <button
+         <Link href="/login">
+           <button
             onClick={() => setActiveBtn("login")}
             className={`px-5 py-2 rounded-md transition 
               ${
@@ -40,9 +41,10 @@ export default function Navbar() {
           >
             Login
           </button>
+         </Link>
 
           {/* Sign Up Button */}
-          <button
+          <Link href="/register"><button
             onClick={() => setActiveBtn("signup")}
             className={`px-5 py-2 rounded-md transition 
               ${
@@ -53,6 +55,7 @@ export default function Navbar() {
           >
             Sign Up
           </button>
+          </Link>
         </nav>
 
         {/* Mobile Hamburger */}
