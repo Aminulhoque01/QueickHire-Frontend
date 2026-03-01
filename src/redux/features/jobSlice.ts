@@ -13,10 +13,10 @@ const initialState: JobState = {
 };
 
 export const fetchJobs = createAsyncThunk(
-  "jobs/fetch",
+  "job/fetch",
   async (_, thunkAPI) => {
     try {
-      const res = await api.get("/jobs");
+      const res = await api.get("/job");
       return res.data.data;
     } catch (err: any) {
       return thunkAPI.rejectWithValue(err.response.data.message);

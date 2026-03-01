@@ -1,15 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/authSlice";
-import { baseApi } from "./features/services/baseApi";
- 
+import { jobApi } from "./features/services/jobApi"; // ✅ jobApi import
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    [baseApi.reducerPath]: baseApi.reducer,
+    [jobApi.reducerPath]: jobApi.reducer, // ✅ add jobApi reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(baseApi.middleware),
+    getDefaultMiddleware().concat(jobApi.middleware), // ✅ add jobApi middleware
 });
 
 export type RootState = ReturnType<typeof store.getState>;

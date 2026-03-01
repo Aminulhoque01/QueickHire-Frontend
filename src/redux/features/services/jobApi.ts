@@ -1,27 +1,21 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseApi } from "./baseApi";
 
-export const jobApi = createApi({
-  reducerPath: "jobApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  }),
-  tagTypes: ["Jobs"],
+export const jobApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // GET ALL JOBS
-    getJobs: builder.query({
-      query: () => "/jobs",
+   getJobs: builder.query({
+      query: ({ page = 1, limit = 8, search = "" }) => `/job?search=${search}&page=${page}&limit=${limit}`,
       providesTags: ["Jobs"],
     }),
-
     // GET SINGLE JOB
     getJobById: builder.query({
-      query: (id: string) => `/jobs/${id}`,
+      query: (id: string) => `/job/${id}`,
     }),
 
     // CREATE JOB
     createJob: builder.mutation({
       query: (jobData) => ({
-        url: "/jobs",
+        url: "/job",
         method: "POST",
         body: jobData,
       }),
@@ -31,7 +25,7 @@ export const jobApi = createApi({
     // DELETE JOB
     deleteJob: builder.mutation({
       query: (id: string) => ({
-        url: `/jobs/${id}`,
+        url: `/job/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Jobs"],

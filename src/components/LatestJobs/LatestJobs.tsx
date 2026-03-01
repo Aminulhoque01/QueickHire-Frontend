@@ -1,73 +1,28 @@
-import Image from "next/image";
-import company1 from "@/assest/latest/Company.png"
-import Nomad from "@/assest/latest/Nomad.png"
-import company2 from "@/assest/latest/Company2.png"
-import brand from "@/assest/latest/brand.png"
-import Company3 from "@/assest/latest/Company3.png"
-import interactive from "@/assest/latest/intreactive.png"
-import Company4 from "@/assest/latest/Company4.png"
-import Company5 from "@/assest/latest/Company5.png"
 
-const jobs = [
-  {
-    id: 1,
-    title: "Social Media Assistant",
-    company: "Nomad",
-    location: "Paris, France",
-    logo: company1,
-  },
-  {
-    id: 2,
-    title: "Social Media Assistant",
-    company: "Netlify",
-    location: "Paris, France",
-    logo: Nomad,
-  },
-  {
-    id: 3,
-    title: "Brand Designer",
-    company: "Dropbox",
-    location: "San Fransisco, USA",
-    logo:company2,
-  },
-  {
-    id: 4,
-    title: "Brand Designer",
-    company: "Maze",
-    location: "San Fransisco, USA",
-    logo: brand,
-  },
-  {
-    id: 5,
-    title: "Interactive Developer",
-    company: "Terraform",
-    location: "Hamburg, Germany",
-    logo: Company3,
-  },
-  {
-    id: 6,
-    title: "Interactive Developer",
-    company: "Udacity",
-    location: "Hamburg, Germany",
-    logo: interactive,
-  },
-  {
-    id: 7,
-    title: "HR Manager",
-    company: "Packer",
-    location: "Lucern, Switzerland",
-    logo: Company4,
-  },
-  {
-    id: 8,
-    title: "HR Manager",
-    company: "Webflow",
-    location: "Lucern, Switzerland",
-    logo: Company5,
-  },
-];
+
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+"use client"
+import Image from "next/image";
+import { useGetJobsQuery } from "@/redux/features/services/jobApi";
+
+ 
 
 export default function LatestJobs() {
+  const { data: jobData = [], isLoading } = useGetJobsQuery({ page: 1, limit: 20 });
+
+  // Sort backend data by createdAt descending
+  const backendJobs = jobData?.data?.data
+    ? [...jobData.data.data].sort(
+        (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+    : [];
+
+  // Use backend data if available, else fallback to initialJobs
+  
+
   return (
     <div className="bg-[#F8F8FD] py-16 px-4">
       <div className="container px-5 mx-auto">
@@ -84,7 +39,7 @@ export default function LatestJobs() {
 
         {/* Job Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {jobs.map((job) => (
+          {backendJobs.map((job: any) => (
             <div
               key={job.id}
               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 cursor-pointer"
@@ -93,7 +48,7 @@ export default function LatestJobs() {
                 {/* Logo */}
                 <div className="w-14 h-14 relative">
                   <Image
-                    src={job.logo}
+                    src={job.logo || job.image || "/latest/Company.png"}
                     alt={job.company}
                     fill
                     className="object-contain rounded-md"
@@ -102,11 +57,9 @@ export default function LatestJobs() {
 
                 {/* Content */}
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {job.title}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
                   <p className="text-gray-500 text-sm mt-1">
-                    {job.company} • {job.location}
+                    {job.company} • {job.location} | {job.workPlace}
                   </p>
 
                   {/* Tags */}
@@ -114,11 +67,9 @@ export default function LatestJobs() {
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-600">
                       Full-Time
                     </span>
-
                     <span className="px-3 py-1 text-xs font-medium rounded-full border border-orange-400 text-orange-500">
                       Marketing
                     </span>
-
                     <span className="px-3 py-1 text-xs font-medium rounded-full border border-[#4640DE] text-[#4640DE]">
                       Design
                     </span>
@@ -127,6 +78,8 @@ export default function LatestJobs() {
               </div>
             </div>
           ))}
+
+          {isLoading && <p className="text-gray-500">Loading jobs...</p>}
         </div>
       </div>
     </div>
