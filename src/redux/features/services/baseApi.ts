@@ -3,7 +3,7 @@ import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
  
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL,
+  baseUrl: `https://queick-hire-backend.vercel.app/`,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
 

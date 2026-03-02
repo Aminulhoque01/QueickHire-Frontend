@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const applicationApi = createApi({
   reducerPath: "applicationApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    baseUrl: `https://queick-hire-backend.vercel.app/`,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");  
       if (token) {
