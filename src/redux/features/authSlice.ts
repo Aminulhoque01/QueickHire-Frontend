@@ -4,7 +4,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  role: string; // ✅ role add করা হলো
+  role: string; 
 }
 
 interface AuthState {

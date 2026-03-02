@@ -20,7 +20,7 @@ export default function LatestJobs() {
       )
     : [];
 
-  // Use backend data if available, else fallback to initialJobs
+ 
   
 
   return (
