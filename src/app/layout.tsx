@@ -4,6 +4,7 @@ import Footer from "@/components/Footer/Footer";
  
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
  
 
 export default function RootLayout({
@@ -18,6 +19,7 @@ export default function RootLayout({
           <AuthProvider>
         <Navbar />
         {children}
+        <Toaster position="top-right" />
         <Footer/>
         </AuthProvider>
         </Providers>

@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useGetJobsQuery } from "@/redux/features/services/jobApi";
+import { useRouter } from "next/navigation";
 
 const tagColors: any = {
   Marketing: "bg-yellow-100 text-yellow-600",
@@ -17,8 +18,9 @@ const tagColors: any = {
 };
 
 export default function FeaturedJobs() {
-  const [page, setPage] = useState(1); // start from page 1
-  const limit = 8; // 8 jobs per page
+   const router = useRouter();
+  const [page, setPage] = useState(1); 
+  const limit = 8;  
 
   const { data: jobData = [], isLoading, isError } = useGetJobsQuery({ page, limit });
   const jobs = jobData?.data?.data;
@@ -43,10 +45,11 @@ export default function FeaturedJobs() {
       </div>
 
       {/* Grid */}
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 cursor-pointer">
         {jobs?.map((job: any) => (
           <div
             key={job._id}
+            onClick={() => router.push(`/pages/job/${job._id}`)}
             className="bg-white p-6 rounded-xl border hover:shadow-xl transition duration-300"
           >
             {/* Top Section */}

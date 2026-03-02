@@ -4,16 +4,29 @@ export const applicationApi = createApi({
   reducerPath: "applicationApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");  
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
+  tagTypes: ["Applications"],
   endpoints: (builder) => ({
     submitApplication: builder.mutation({
       query: (data) => ({
-        url: "/api/applications",
+        url: "/apply",
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Applications"],
+    }),
+    getAppliedJobs: builder.query({
+      query: () => "/apply/my",
+      providesTags: ["Applications"],
     }),
   }),
 });
 
-export const { useSubmitApplicationMutation } = applicationApi;
+export const { useSubmitApplicationMutation, useGetAppliedJobsQuery } = applicationApi;
